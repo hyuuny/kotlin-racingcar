@@ -12,11 +12,12 @@ data class Cars(
 
         fun create(names: List<String>): Cars {
             val cars = mutableListOf<Car>()
-            for (name in names) {
-                cars.add(Car(name.trim()))
-            }
+            this.addNames(names, cars)
             return Cars(cars)
         }
+
+        private fun addNames(names: List<String>, cars: MutableList<Car>) =
+            names.forEach { name -> cars.add(Car(name.trim())) }
     }
 
     fun move(condition: MoveCondition) = this.cars
@@ -25,17 +26,15 @@ data class Cars(
     fun getWinners(): String {
         val winnerNames = mutableListOf<String>()
         val maxPosition = getMaxPosition(this.cars)
-
-        for (car in this.cars) {
-            addWinners(winnerNames, maxPosition, car)
-        }
+        this.addWinnerNames(winnerNames, maxPosition)
         return winnerNames.joinToString(COMMA)
     }
 
+    private fun addWinnerNames(winnerNames: MutableList<String>, maxPosition: Int) =
+        this.cars.forEach { car -> addWinners(winnerNames, maxPosition, car) }
+
     private fun addWinners(winnersName: MutableList<String>, maxPosition: Int, car: Car) {
-        if (car.isPositionEqual(maxPosition)) {
-            winnersName.add(car.toName)
-        }
+        if (car.isPositionEqual(maxPosition)) winnersName.add(car.toName)
     }
 
 }

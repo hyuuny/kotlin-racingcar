@@ -2,12 +2,11 @@ package domain
 
 data class Car(
     val name: Name,
-    val position: Position,
+    val position: Position = Position(),
 ) {
 
     constructor(name: String) : this(
-        name = Name(name),
-        position = Position(),
+        name = Name(name)
     )
 
     val toName: String

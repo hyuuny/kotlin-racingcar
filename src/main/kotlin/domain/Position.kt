@@ -13,9 +13,8 @@ data class Position(
 
         fun getMaxPosition(cars: List<Car>): Int {
             var maxPosition = cars.first().toPosition
-            for (car in cars) {
-                maxPosition = maxPosition.coerceAtLeast(car.toPosition)
-            }
+            cars
+                .forEach { car -> maxPosition = maxPosition.coerceAtLeast(car.toPosition) }
             return maxPosition
         }
     }
@@ -35,6 +34,5 @@ data class Position(
     }
 
     fun isEqualTo(position: Int) = this.position == position
-
 
 }

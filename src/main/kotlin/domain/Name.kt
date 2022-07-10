@@ -15,7 +15,6 @@ data class Name(
         verifyName(name)
     }
 
-
     private fun verifyName(name: String) {
         if (name.trim().isEmpty())
             throw IllegalArgumentException(ERROR_MSG + EMPTY_ERROR_MSG)
