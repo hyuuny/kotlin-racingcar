@@ -1,7 +1,7 @@
 package domain
 
 data class Position(
-    val position: Int = INIT_POSITION,
+    var position: Int = INIT_POSITION,
 ) {
 
     companion object {
@@ -10,6 +10,14 @@ data class Position(
         private const val INIT_POSITION = 0
         private const val MINIMUM_POSITION = 0
         private const val MAXIMUM_POSITION = 9
+
+        fun getMaxPosition(cars: List<Car>): Int {
+            var maxPosition = cars.first().toPosition
+            for (car in cars) {
+                maxPosition = maxPosition.coerceAtLeast(car.toPosition)
+            }
+            return maxPosition
+        }
     }
 
     init {
@@ -21,8 +29,12 @@ data class Position(
             throw IllegalArgumentException(ERROR_MSG + POSITION_ERROR_MSG)
     }
 
-    fun addPosition() = Position(this.position + 1)
+    fun addPosition(): Position {
+        this.position += 1
+        return Position(this.position)
+    }
 
     fun isEqualTo(position: Int) = this.position == position
+
 
 }
